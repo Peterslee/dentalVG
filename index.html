@@ -20,6 +20,13 @@
             z-index: 1050; /* Pastikan di atas modal */
             min-width: 250px;
         }
+        .logo{
+            width: 200px;
+            height: 200px;
+            background-image: url("img/logo4.jpg");
+            background-repeat: no-repeat;
+            border-radius: 100px;
+        }
         /* Gaya untuk spinner loading */
         .spinner-overlay {
             position: fixed;
@@ -50,23 +57,22 @@
     </style>
 </head>
 <body class="bg-light min-vh-100 d-flex align-items-start justify-content-center py-4">
-    <div class="container bg-white p-4 p-md-5 rounded-3 shadow-lg" style="max-width: 960px;">
+    <div class="container bg-white p-4 p-md-5 rounded-3 shadow-lg" style="max-width: 1500px;">
+        <center><a href="img/pebri.jpg"><div class="logo"></div></a></center>
         <h1 class="text-center mb-4 text-primary">Daftar Pasien</h1>
 
-        <div class="card text-center bg-light text-secondary shadow-sm rounded-3 mb-3">
-            <div class="card-body">
-                <h5 class="card-title mb-2">Diar Hady Waluyo s.k.g</h5>
-                <p class="card-text fs-4 fw-bold" id="real-time-display">Memuat...</p>
-            </div>
+        <div class="mb-3 text-center">
+            <small class="text-muted">ID Pengguna Lokal: <span id="user-id-display">Memuat...</span></small>
         </div>
 
-        <!-- <div class="mb-3 text-center">
-            <small class="text-muted">ID Pengguna: <span id="user-id-display">Memuat...</span></small>
-        </div> -->
-        <div class="col-12">
-            <h2 class="h4 mb-3 text-secondary bg-primary w-100 rounded-3 shadow-sm text-white text-start py-2 px-3">Tambah Pasien Baru</h2>
-        </div>
-        
+        <div class="card text-center bg-light text-secondary shadow-sm rounded-3 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-2">Diar Hady Waluyo S.k.g</h5>
+                    <p class="card-text fs-4 fw-bold" id="real-time-display">Memuat...</p>
+                </div>
+            </div>
+
+        <h2 class="h4 mb-3 text-secondary bg-primary w-100 rounded-3 shadow-sm text-white text-start py-2 px-3">Tambah Pasien Baru</h2>
         <form id="form-tambah-pasien" class="row g-3 mb-4">
             <div class="col-12">
                 <input type="text" id="nama-pasien-tambah" placeholder="Nama Pasien" required
@@ -86,18 +92,21 @@
             </div>
             <div class="col-12">
                 <button type="submit" id="tambah-pasien-button"
-                        class="btn btn-success w-100 rounded-3 shadow-sm mb-5">
+                        class="btn btn-success w-100 rounded-3 shadow-sm">
                     Tambah Pasien
                 </button>
             </div>
         </form>
 
-        <h2 class="h4 mb-3 text-secondary bg-primary w-100 rounded-3 shadow-sm text-white text-start py-2 px-3">Daftar pasien</h2>
-        <div class="mb-4 d-flex align-items-center">
+        <h2 class="h4 mb-3 text-secondary bg-primary w-100 rounded-3 shadow-sm text-white text-start py-2 px-3">Daftar Pasien Terdaftar</h2>
+        <div class="mb-4 d-flex align-items-center justify-content-between">
             <input type="text" id="cari-pasien" placeholder="Cari Pasien berdasarkan nama, alamat, atau keluhan..."
                    class="form-control rounded-3 me-2">
-            <button type="button" id="cetak-pdf-button" class="btn btn-secondary rounded-3 shadow-sm">
+            <button type="button" id="cetak-pdf-button" class="btn btn-secondary rounded-3 shadow-sm me-2">
                 Cetak PDF
+            </button>
+            <button type="button" id="hapus-semua-data-button" class="btn btn-danger rounded-3 shadow-sm">
+                Hapus Semua Data
             </button>
         </div>
 
@@ -111,6 +120,7 @@
                             <th scope="col" class="py-3 px-4">Alamat</th>
                             <th scope="col" class="py-3 px-4">Keluhan</th>
                             <th scope="col" class="py-3 px-4">Keterangan</th>
+                            <th scope="col" class="py-3 px-4">Jenis Pembayaran</th>
                             <th scope="col" class="py-3 px-4 text-end">Bayaran (Rp)</th>
                             <th scope="col" class="py-3 px-4 text-center action-column-header">Aksi</th>
                         </tr>
@@ -120,7 +130,7 @@
                 </table>
             </div>
 
-            <h2 class="h4 mb-3 text-secondary bg-primary w-100 rounded-3 shadow-sm text-white text-start py-2 px-3">Pengeluaran</h2>
+            <h2 class="h4 mb-3 text-secondary bg-primary w-100 rounded-3 shadow-sm text-white text-start py-2 px-3">Pengeluaran Lain-lain</h2>
             <div class="row g-3 mb-2" id="pengeluaran-lain-lain-input-section">
                 <div class="col-md-8">
                     <input type="number" id="pengeluaran-lain-input" placeholder="Jumlah Pengeluaran (Rp)" min="0"
@@ -149,7 +159,7 @@
                 </div>
             </div>
 
-            <div class="card text-center bg-info text-white shadow-sm rounded-3 mb-3" id="total-pengeluaran-card">
+            <div class="card text-center bg-danger text-white shadow-sm rounded-3 mb-3">
                 <div class="card-body">
                     <h5 class="card-title mb-2">Total Pengeluaran</h5>
                     <p class="card-text fs-3 fw-bold" id="total-pengeluaran">Rp 0</p>
@@ -159,7 +169,7 @@
             <div class="card text-center bg-primary text-white shadow-sm rounded-3">
                 <div class="card-body">
                     <h5 class="card-title mb-2">Total Hasil</h5>
-                    <p class="card-text fs-3 fw-bold text-white" id="total-hasil">Rp 0</p>
+                    <p class="card-text fs-3 fw-bold" id="total-hasil">Rp 0</p>
                 </div>
             </div>
         </div>
@@ -183,6 +193,26 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteAllConfirmModal" tabindex="-1" aria-labelledby="deleteAllConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAllConfirmModalLabel">Konfirmasi Hapus Semua Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Anda akan menghapus SEMUA data pasien dan pengeluaran yang tersimpan di komputer ini.</p>
+                    <p><strong>Tindakan ini tidak dapat dibatalkan.</strong></p>
+                    <p>Apakah Anda yakin ingin melanjutkan?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteAllButton">Hapus Semua</button>
                 </div>
             </div>
         </div>
@@ -218,26 +248,7 @@
                             <input type="number" id="bayaran-pasien-edit" class="form-control rounded-3" min="0" required>
                         </div>
                         <button type="submit" class="btn btn-success w-100 rounded-3 shadow-sm">Update Pasien</button>
-                        <!-- <button type="button" id="get-recommendation-btn" class="btn btn-secondary w-100 rounded-3 shadow-sm mt-2">Dapatkan Rekomendasi Perawatan ✨</button> -->
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="recommendationModal" tabindex="-1" aria-labelledby="recommendationModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <!-- <div class="modal-header">
-                    <h5 class="modal-title" id="recommendationModalLabel">Rekomendasi Perawatan untuk <span id="recommendation-patient-name"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div> -->
-                <div class="modal-body">
-                    <div id="recommendation-content">
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
@@ -249,17 +260,97 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS harus dimuat SEBELUM kode kustom Anda -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        // Variabel untuk menyimpan data pasien dan pengeluaran di memori
+    
+    <script type="module">
+        // Variabel global untuk data pasien dan pengeluaran di memori
         let pasienList = [];
         let miscellaneousExpenditures = [];
+        let userId; // Deklarasi userId tanpa inisialisasi awal
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // Menampilkan notifikasi di pojok kanan bawah layar menggunakan Bootstrap Alert.
+        window.showNotification = function(message, type = 'success') {
+            const notificationArea = document.getElementById('notification-area');
+            const notificationMessage = document.getElementById('notification-message');
+            notificationMessage.textContent = message;
+            notificationArea.classList.remove('d-none', 'alert-success', 'alert-danger', 'alert-warning', 'alert-info');
+            notificationArea.classList.add(`alert-${type}`);
+            notificationArea.classList.add('show');
+
+            // Sembunyikan notifikasi setelah 3 detik
+            setTimeout(() => {
+                notificationArea.classList.remove('show');
+                notificationArea.classList.add('d-none');
+            }, 3000);
+        };
+
+        // Fungsi pembantu untuk memperbarui data pasien secara inline di tabel.
+        window.updateInlinePatient = function(element, field, id) {
+            const pasienIndex = pasienList.findIndex(p => p.id === id);
+            if (pasienIndex !== -1) {
+                pasienList[pasienIndex][field] = element.value;
+                saveDataToLocalStorage();
+                window.showNotification('Data pasien berhasil diperbarui!', 'success');
+                renderPasien(); // Render ulang untuk memperbarui total
+            } else {
+                window.showNotification('Gagal memperbarui data pasien. Pasien tidak ditemukan.', 'danger');
+            }
+        };
+
+        // Fungsi-fungsi perhitungan total
+        window.calculateAndRenderTotalPengeluaran = function() {
+            const totalMiscellaneous = miscellaneousExpenditures.reduce((sum, item) => sum + item.amount, 0);
+            document.getElementById('total-pengeluaran').textContent = `Rp ${totalMiscellaneous.toLocaleString('id-ID')}`;
+            window.calculateAndRenderTotalHasil();
+        };
+
+        window.calculateAndRenderTotalBayaran = function() {
+            const total = pasienList.reduce((sum, pasien) => sum + pasien.bayaran, 0);
+            document.getElementById('total-bayaran').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            window.calculateAndRenderTotalHasil();
+        };
+
+        window.calculateAndRenderTotalHasil = function() {
+            const totalBayaran = pasienList.reduce((sum, pasien) => sum + pasien.bayaran, 0);
+            const totalPengeluaran = miscellaneousExpenditures.reduce((sum, item) => sum + item.amount, 0);
+            const totalHasil = totalBayaran - totalPengeluaran;
+            document.getElementById('total-hasil').textContent = `Rp ${totalHasil.toLocaleString('id-ID')}`;
+        };
+
+        /**
+         * Menyimpan data pasien dan pengeluaran ke localStorage.
+         */
+        function saveDataToLocalStorage() {
+            localStorage.setItem(`pasienList_${userId}`, JSON.stringify(pasienList));
+            localStorage.setItem(`miscellaneousExpenditures_${userId}`, JSON.stringify(miscellaneousExpenditures));
+        }
+
+        /**
+         * Memuat data pasien dan pengeluaran dari localStorage.
+         */
+        function loadDataFromLocalStorage() {
+            const storedPasien = localStorage.getItem(`pasienList_${userId}`);
+            const storedMisc = localStorage.getItem(`miscellaneousExpenditures_${userId}`);
+            pasienList = storedPasien ? JSON.parse(storedPasien) : [];
+            miscellaneousExpenditures = storedMisc ? JSON.parse(storedMisc) : [];
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const spinnerOverlay = document.getElementById('spinner-overlay');
+            spinnerOverlay.classList.remove('d-none'); // Tampilkan spinner saat memuat
+
+            // Inisialisasi userId agar persisten
+            let storedUserId = localStorage.getItem('localUserId');
+            if (storedUserId) {
+                userId = storedUserId;
+            } else {
+                userId = crypto.randomUUID();
+                localStorage.setItem('localUserId', userId);
+            }
+            document.getElementById('user-id-display').textContent = userId;
+
             // Mendapatkan elemen-elemen DOM untuk form tambah pasien
-            const realTimeDisplay = document.getElementById('real-time-display'); 
-            // New element for real-time displayconst realTimeDisplay = document.getElementById('real-time-display'); 
-            // // New element for real-time display
             const formTambahPasien = document.getElementById('form-tambah-pasien');
             const namaPasienTambahInput = document.getElementById('nama-pasien-tambah');
             const alamatPasienTambahInput = document.getElementById('alamat-pasien-tambah');
@@ -267,12 +358,9 @@
             const keteranganPasienTambahInput = document.getElementById('keterangan-pasien-tambah');
             const daftarPasienBody = document.getElementById('daftar-pasien-body');
             const cariPasienInput = document.getElementById('cari-pasien');
-            const notificationArea = document.getElementById('notification-area');
-            const notificationMessage = document.getElementById('notification-message');
-            const totalPengeluaranElement = document.getElementById('total-pengeluaran');
-            const totalBayaranElement = document.getElementById('total-bayaran');
-            const totalHasilElement = document.getElementById('total-hasil');
             const cetakPdfButton = document.getElementById('cetak-pdf-button');
+            const realTimeDisplay = document.getElementById('real-time-display');
+            const hapusSemuaDataButton = document.getElementById('hapus-semua-data-button'); // Tombol baru
 
             // Elemen DOM untuk pengeluaran lain-lain
             const pengeluaranLainInput = document.getElementById('pengeluaran-lain-input');
@@ -280,15 +368,16 @@
             const tambahPengeluaranLainButton = document.getElementById('tambah-pengeluaran-lain-button');
             const miscellaneousExpenditureList = document.getElementById('miscellaneous-expenditure-list');
             const noMiscellaneousData = document.getElementById('no-miscellaneous-data');
-            const pengeluaranLainLainHeading = document.getElementById('pengeluaran-lain-lain-heading');
-            const pengeluaranLainLainInputSection = document.getElementById('pengeluaran-lain-lain-input-section');
-            const totalPengeluaranCard = document.getElementById('total-pengeluaran-card');
 
-            // Elemen modal konfirmasi hapus
+            // Elemen modal konfirmasi hapus item tunggal
             const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
             const confirmDeleteButton = document.getElementById('confirmDeleteButton');
-            let deleteIndex = -1; // Simpan indeks item untuk penghapusan
-            let deleteType = null; // 'pasien' atau 'misc'
+            let deleteItemId = null; // Menggunakan ID untuk penghapusan
+            let deleteType = null;
+
+            // Elemen modal konfirmasi hapus semua data
+            const deleteAllConfirmModal = new bootstrap.Modal(document.getElementById('deleteAllConfirmModal'));
+            const confirmDeleteAllButton = document.getElementById('confirmDeleteAllButton');
 
             // Elemen modal edit pasien
             const editPasienModal = new bootstrap.Modal(document.getElementById('editPasienModal'));
@@ -298,35 +387,34 @@
             const keluhanPasienEditInput = document.getElementById('keluhan-pasien-edit');
             const keteranganPasienEditInput = document.getElementById('keterangan-pasien-edit');
             const bayaranPasienEditInput = document.getElementById('bayaran-pasien-edit');
-            const getRecommendationBtn = document.getElementById('get-recommendation-btn');
-            let editingIndex = -1; // Simpan indeks pasien untuk pengeditan
-
-            // Elemen modal rekomendasi perawatan
-            const recommendationModal = new bootstrap.Modal(document.getElementById('recommendationModal'));
-            const recommendationPatientName = document.getElementById('recommendation-patient-name');
-            const recommendationContent = document.getElementById('recommendation-content');
-            const spinnerOverlay = document.getElementById('spinner-overlay');
+            let editingItemId = null; // Menggunakan ID untuk pengeditan
 
             // Elemen yang akan dicetak ke PDF
             const reportSection = document.getElementById('report-section');
 
-            /**
-             * Menampilkan notifikasi di pojok kanan bawah layar menggunakan Bootstrap Alert.
-             * @param {string} message - Pesan yang akan ditampilkan.
-             * @param {string} type - Tipe notifikasi ('success', 'danger', 'warning', 'info').
-             */
-            function showNotification(message, type = 'success') {
-                notificationMessage.textContent = message;
-                notificationArea.classList.remove('d-none', 'alert-success', 'alert-danger', 'alert-warning', 'alert-info');
-                notificationArea.classList.add(`alert-${type}`);
-                notificationArea.classList.add('show');
 
-                // Sembunyikan notifikasi setelah 3 detik
-                setTimeout(() => {
-                    notificationArea.classList.remove('show');
-                    notificationArea.classList.add('d-none');
-                }, 3000);
+            loadDataFromLocalStorage(); // Muat data saat DOM siap
+            renderPasien(); // Render pasien setelah memuat data
+            renderMiscellaneousExpenditures(); // Render pengeluaran setelah memuat data
+            window.calculateAndRenderTotalPengeluaran();
+            window.calculateAndRenderTotalBayaran();
+            window.calculateAndRenderTotalHasil();
+
+            spinnerOverlay.classList.add('d-none'); // Sembunyikan spinner setelah memuat data
+
+            /**
+             * Memperbarui tampilan waktu dan tanggal saat ini.
+             */
+            function updateRealTimeDisplay() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                realTimeDisplay.textContent = now.toLocaleDateString('id-ID', options);
             }
+
+            // Panggil fungsi updateRealTimeDisplay setiap detik
+            setInterval(updateRealTimeDisplay, 1000);
+            // Panggil sekali saat inisialisasi untuk menampilkan waktu segera
+            updateRealTimeDisplay();
 
             /**
              * Merender (menampilkan) daftar pasien ke dalam tabel.
@@ -340,33 +428,41 @@
                     pasien.nama.toLowerCase().includes(searchTerm) ||
                     pasien.alamat.toLowerCase().includes(searchTerm) ||
                     pasien.keluhan.toLowerCase().includes(searchTerm) ||
-                    pasien.keterangan.toLowerCase().includes(searchTerm)
+                    pasien.keterangan.toLowerCase().includes(searchTerm) ||
+                    (pasien.jenisPembayaran && pasien.jenisPembayaran.toLowerCase().includes(searchTerm))
                 );
 
                 if (filteredPasien.length === 0) {
                     const noDataRow = daftarPasienBody.insertRow();
-                    noDataRow.innerHTML = `<td colspan="7" class="text-center text-muted py-3">Tidak ada pasien yang ditemukan.</td>`;
+                    noDataRow.innerHTML = `<td colspan="8" class="text-center text-muted py-3">Tidak ada pasien yang ditemukan.</td>`;
                     return;
                 }
 
-                filteredPasien.forEach((pasien, index) => {
+                filteredPasien.forEach((pasien, idx) => {
                     const row = daftarPasienBody.insertRow();
                     row.innerHTML = `
-                        <td class="py-2 px-4">${index + 1}.</td>
+                        <td class="py-2 px-4">${idx + 1}.</td>
                         <td class="py-2 px-4">${pasien.nama}</td>
                         <td class="py-2 px-4">${pasien.alamat}</td>
                         <td class="py-2 px-4">${pasien.keluhan}</td>
                         <td class="py-2 px-4">${pasien.keterangan}</td>
+                        <td class="py-2 px-4">
+                            <select class="form-select form-select-sm rounded-3" onchange="window.updateInlinePatient(this, 'jenisPembayaran', '${pasien.id}')">
+                                <option value="Tunai" ${pasien.jenisPembayaran === 'Tunai' ? 'selected' : ''}>Tunai</option>
+                                <option value="Transfer" ${pasien.jenisPembayaran === 'Transfer' ? 'selected' : ''}>Transfer</option>
+                            </select>
+                        </td>
                         <td class="py-2 px-4 text-end">${pasien.bayaran.toLocaleString('id-ID')}</td>
                         <td class="py-2 px-4 text-center action-column-cell">
-                            <button class="btn btn-warning btn-sm me-2 edit-btn" data-index="${index}">Edit</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-index="${index}" data-type="pasien">Hapus</button>
+                            <button class="btn btn-warning btn-sm me-2 edit-btn" data-item-id="${pasien.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-item-id="${pasien.id}" data-type="pasien">Hapus</button>
                         </td>
                     `;
                 });
-                calculateAndRenderTotalPengeluaran();
-                calculateAndRenderTotalBayaran();
-                calculateAndRenderTotalHasil();
+
+                window.calculateAndRenderTotalPengeluaran();
+                window.calculateAndRenderTotalBayaran();
+                window.calculateAndRenderTotalHasil();
             }
 
             /**
@@ -379,7 +475,7 @@
                     noMiscellaneousData.classList.remove('d-none');
                 } else {
                     noMiscellaneousData.classList.add('d-none');
-                    miscellaneousExpenditures.forEach((item, index) => {
+                    miscellaneousExpenditures.forEach((item) => {
                         const div = document.createElement('div');
                         div.classList.add('miscellaneous-item');
                         div.innerHTML = `
@@ -387,7 +483,7 @@
                                 <strong>Rp ${item.amount.toLocaleString('id-ID')}</strong>
                                 <p class="text-muted mb-0">${item.description || '(Tanpa Keterangan)'}</p>
                             </div>
-                            <button class="btn btn-sm btn-outline-danger delete-misc-btn hide-for-pdf-misc" data-index="${index}" data-type="misc">Hapus</button>
+                            <button class="btn btn-sm btn-outline-danger delete-misc-btn hide-for-pdf-misc" data-item-id="${item.id}" data-type="misc">Hapus</button>
                         `;
                         miscellaneousExpenditureList.appendChild(div);
                     });
@@ -395,54 +491,40 @@
             }
 
             /**
-             * Menghitung dan menampilkan total pengeluaran dari semua pengeluaran lain-lain.
-             */
-            function calculateAndRenderTotalPengeluaran() {
-                const totalMiscellaneous = miscellaneousExpenditures.reduce((sum, item) => sum + item.amount, 0);
-                totalPengeluaranElement.textContent = `Rp ${totalMiscellaneous.toLocaleString('id-ID')}`;
-                calculateAndRenderTotalHasil();
-            }
-
-            /**
-             * Menghitung dan menampilkan total bayaran dari semua pasien.
-             */
-            function calculateAndRenderTotalBayaran() {
-                const total = pasienList.reduce((sum, pasien) => sum + pasien.bayaran, 0);
-                totalBayaranElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-                calculateAndRenderTotalHasil();
-            }
-
-            /**
-             * Menghitung dan menampilkan total hasil (bayaran - pengeluaran).
-             */
-            function calculateAndRenderTotalHasil() {
-                const totalBayaran = pasienList.reduce((sum, pasien) => sum + pasien.bayaran, 0);
-                const totalPengeluaran = miscellaneousExpenditures.reduce((sum, item) => sum + item.amount, 0);
-                const totalHasil = totalBayaran - totalPengeluaran;
-                totalHasilElement.textContent = `Rp ${totalHasil.toLocaleString('id-ID')}`;
-            }
-
-            /**
              * Menangani pengiriman formulir tambah pasien baru.
              */
             formTambahPasien.addEventListener('submit', (e) => {
                 e.preventDefault();
+                spinnerOverlay.classList.remove('d-none');
 
                 const nama = namaPasienTambahInput.value.trim();
                 const alamat = alamatPasienTambahInput.value.trim();
                 const keluhan = keluhanPasienTambahInput.value.trim();
                 const keterangan = keteranganPasienTambahInput.value.trim();
+                const jenisPembayaran = 'Tunai'; // Default ke Tunai
 
                 if (!nama || !alamat || !keluhan) {
-                    showNotification('Harap isi semua kolom Nama, Alamat, dan Keluhan dengan benar!', 'danger');
+                    window.showNotification('Harap isi semua kolom Nama, Alamat, dan Keluhan dengan benar!', 'danger');
+                    spinnerOverlay.classList.add('d-none');
                     return;
                 }
 
-                pasienList.push({ nama, alamat, keluhan, keterangan, bayaran: 0 });
-                showNotification('Pasien berhasil ditambahkan!', 'success');
-
-                formTambahPasien.reset();
+                const newPasien = {
+                    id: crypto.randomUUID(), // ID unik untuk setiap pasien
+                    nama,
+                    alamat,
+                    keluhan,
+                    keterangan,
+                    jenisPembayaran,
+                    bayaran: 0,
+                    createdAt: new Date().toISOString() // Simpan sebagai string ISO
+                };
+                pasienList.push(newPasien);
+                saveDataToLocalStorage();
                 renderPasien();
+                window.showNotification('Pasien berhasil ditambahkan!', 'success');
+                formTambahPasien.reset();
+                spinnerOverlay.classList.add('d-none');
             });
 
             /**
@@ -450,6 +532,7 @@
              */
             formEditPasien.addEventListener('submit', (e) => {
                 e.preventDefault();
+                spinnerOverlay.classList.remove('d-none');
 
                 const nama = namaPasienEditInput.value.trim();
                 const alamat = alamatPasienEditInput.value.trim();
@@ -458,88 +541,131 @@
                 const bayaran = parseFloat(bayaranPasienEditInput.value);
 
                 if (!nama || !alamat || !keluhan || isNaN(bayaran) || bayaran < 0) {
-                    showNotification('Harap isi semua kolom dengan benar dan angka tidak boleh negatif!', 'danger');
+                    window.showNotification('Harap isi semua kolom dengan benar dan angka tidak boleh negatif!', 'danger');
+                    spinnerOverlay.classList.add('d-none');
                     return;
                 }
 
-                if (editingIndex !== -1) {
-                    pasienList[editingIndex].nama = nama;
-                    pasienList[editingIndex].alamat = alamat;
-                    pasienList[editingIndex].keluhan = keluhan;
-                    pasienList[editingIndex].keterangan = keterangan;
-                    pasienList[editingIndex].bayaran = bayaran;
-
-                    showNotification('Data pasien berhasil diperbarui!', 'success');
-                    editPasienModal.hide();
+                const pasienIndex = pasienList.findIndex(p => p.id === editingItemId);
+                if (pasienIndex !== -1) {
+                    pasienList[pasienIndex] = {
+                        ...pasienList[pasienIndex], // Pertahankan properti lain
+                        nama,
+                        alamat,
+                        keluhan,
+                        keterangan,
+                        bayaran
+                    };
+                    saveDataToLocalStorage();
                     renderPasien();
+                    window.showNotification('Data pasien berhasil diperbarui!', 'success');
+                    editPasienModal.hide();
                 } else {
-                    showNotification('Gagal memperbarui data pasien. Indeks tidak valid.', 'danger');
+                    window.showNotification('Gagal memperbarui data pasien. Pasien tidak ditemukan.', 'danger');
                 }
+                spinnerOverlay.classList.add('d-none');
             });
 
             /**
              * Menangani klik pada tombol "Tambahkan Pengeluaran Lain-lain".
              */
             tambahPengeluaranLainButton.addEventListener('click', () => {
+                spinnerOverlay.classList.remove('d-none');
                 const amount = parseFloat(pengeluaranLainInput.value);
                 const description = keteranganPengeluaranLainInput.value.trim();
 
                 if (!isNaN(amount) && amount >= 0) {
-                    miscellaneousExpenditures.push({ amount, description });
-                    showNotification(`Rp ${amount.toLocaleString('id-ID')} ditambahkan ke pengeluaran lain-lain.`, 'success');
+                    const newMisc = {
+                        id: crypto.randomUUID(), // ID unik untuk setiap pengeluaran
+                        amount,
+                        description,
+                        createdAt: new Date().toISOString()
+                    };
+                    miscellaneousExpenditures.push(newMisc);
+                    saveDataToLocalStorage();
+                    renderMiscellaneousExpenditures();
+                    window.calculateAndRenderTotalPengeluaran();
+                    window.showNotification(`Rp ${amount.toLocaleString('id-ID')} ditambahkan ke pengeluaran lain-lain.`, 'success');
                     pengeluaranLainInput.value = '';
                     keteranganPengeluaranLainInput.value = '';
-                    renderMiscellaneousExpenditures();
-                    calculateAndRenderTotalPengeluaran();
                 } else {
-                    showNotification('Harap masukkan jumlah yang valid dan tidak negatif untuk pengeluaran lain-lain.', 'danger');
+                    window.showNotification('Harap masukkan jumlah yang valid dan tidak negatif untuk pengeluaran lain-lain.', 'danger');
                 }
+                spinnerOverlay.classList.add('d-none');
             });
 
             /**
              * Menangani klik pada tombol hapus di daftar pengeluaran lain-lain atau pasien.
              */
             confirmDeleteButton.addEventListener('click', () => {
-                if (deleteType === 'pasien' && deleteIndex !== -1) {
-                    pasienList.splice(deleteIndex, 1);
-                    showNotification('Pasien berhasil dihapus!', 'success');
-                } else if (deleteType === 'misc' && deleteIndex !== -1) {
-                    miscellaneousExpenditures.splice(deleteIndex, 1);
-                    showNotification('Pengeluaran lain-lain berhasil dihapus!', 'success');
+                spinnerOverlay.classList.remove('d-none');
+                if (deleteItemId) {
+                    if (deleteType === 'pasien') {
+                        pasienList = pasienList.filter(p => p.id !== deleteItemId);
+                        window.showNotification('Pasien berhasil dihapus!', 'success');
+                    } else if (deleteType === 'misc') {
+                        miscellaneousExpenditures = miscellaneousExpenditures.filter(m => m.id !== deleteItemId);
+                        window.showNotification('Pengeluaran lain-lain berhasil dihapus!', 'success');
+                    }
+                    saveDataToLocalStorage();
+                    renderPasien(); // Render ulang pasien (jika pasien dihapus)
+                    renderMiscellaneousExpenditures(); // Render ulang pengeluaran (jika pengeluaran dihapus)
+                    window.calculateAndRenderTotalPengeluaran(); // Hitung ulang total
                 } else {
-                    showNotification('Gagal menghapus item. Indeks atau tipe tidak valid.', 'danger');
+                    window.showNotification('Gagal menghapus item. ID tidak valid.', 'danger');
                 }
                 deleteConfirmModal.hide();
-                deleteIndex = -1;
+                deleteItemId = null;
                 deleteType = null;
-                renderPasien(); // Render ulang pasien untuk memperbarui tabel
-                renderMiscellaneousExpenditures(); // Render ulang pengeluaran untuk memperbarui daftar
-                calculateAndRenderTotalPengeluaran(); // Hitung ulang total pengeluaran
-                calculateAndRenderTotalBayaran(); // Hitung ulang total bayaran
-                calculateAndRenderTotalHasil(); // Hitung ulang total hasil
+                spinnerOverlay.classList.add('d-none');
+            });
+
+            /**
+             * Menangani klik pada tombol "Hapus Semua Data".
+             */
+            hapusSemuaDataButton.addEventListener('click', () => {
+                deleteAllConfirmModal.show(); // Tampilkan modal konfirmasi
+            });
+
+            /**
+             * Menangani konfirmasi penghapusan semua data.
+             */
+            confirmDeleteAllButton.addEventListener('click', () => {
+                spinnerOverlay.classList.remove('d-none');
+                pasienList = []; // Kosongkan array pasien
+                miscellaneousExpenditures = []; // Kosongkan array pengeluaran
+                saveDataToLocalStorage(); // Simpan perubahan ke localStorage
+                renderPasien(); // Render ulang untuk menampilkan tabel kosong
+                renderMiscellaneousExpenditures(); // Render ulang untuk menampilkan daftar pengeluaran kosong
+                window.calculateAndRenderTotalPengeluaran(); // Perbarui total
+                window.calculateAndRenderTotalBayaran(); // Perbarui total
+                window.calculateAndRenderTotalHasil(); // Perbarui total
+                window.showNotification('Semua data berhasil dihapus!', 'success');
+                deleteAllConfirmModal.hide();
+                spinnerOverlay.classList.add('d-none');
             });
 
 
             // Menangani klik pada tombol Edit atau Hapus di tabel.
             daftarPasienBody.addEventListener('click', (e) => {
                 const target = e.target;
-                const index = parseInt(target.dataset.index); // Dapatkan indeks
+                const itemId = target.dataset.itemId; // Dapatkan item ID
 
                 if (target.classList.contains('delete-btn')) {
-                    deleteIndex = index;
+                    deleteItemId = itemId;
                     deleteType = 'pasien';
-                    document.getElementById('deleteConfirmModalLabel').textContent = 'Konfirmasi Penghapusan';
+                    document.getElementById('deleteConfirmModalLabel').textContent = 'Konfirmasi Penghapusan Pasien';
                     document.querySelector('#deleteConfirmModal .modal-body').textContent = 'Apakah Anda yakin ingin menghapus pasien ini?';
                     deleteConfirmModal.show();
                 } else if (target.classList.contains('edit-btn')) {
-                    const pasienToEdit = pasienList[index];
+                    const pasienToEdit = pasienList.find(p => p.id === itemId);
                     if (pasienToEdit) {
                         namaPasienEditInput.value = pasienToEdit.nama;
                         alamatPasienEditInput.value = pasienToEdit.alamat;
                         keluhanPasienEditInput.value = pasienToEdit.keluhan;
                         keteranganPasienEditInput.value = pasienToEdit.keterangan;
                         bayaranPasienEditInput.value = pasienToEdit.bayaran;
-                        editingIndex = index; // Atur indeks untuk pengeditan
+                        editingItemId = itemId; // Atur item ID untuk pengeditan
                         editPasienModal.show();
                     }
                 }
@@ -548,7 +674,7 @@
             // Menangani klik pada tombol hapus di daftar pengeluaran lain-lain.
             miscellaneousExpenditureList.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete-misc-btn')) {
-                    deleteIndex = parseInt(e.target.dataset.index);
+                    deleteItemId = e.target.dataset.itemId;
                     deleteType = 'misc';
                     document.getElementById('deleteConfirmModalLabel').textContent = 'Konfirmasi Penghapusan Pengeluaran Lain-lain';
                     document.querySelector('#deleteConfirmModal .modal-body').textContent = 'Apakah Anda yakin ingin menghapus pengeluaran lain-lain ini?';
@@ -558,57 +684,11 @@
 
 
             /**
-             * Memanggil Gemini API untuk mendapatkan rekomendasi perawatan.
-             * @param {string} keluhan - Keluhan pasien.
-             * @param {string} namaPasien - Nama pasien.
-             */
-            async function getTreatmentRecommendation(keluhan, namaPasien) {
-                spinnerOverlay.classList.remove('d-none');
-                recommendationContent.innerHTML = '<p class="text-center text-muted">Memuat rekomendasi...</p>';
-                recommendationPatientName.textContent = namaPasien;
-                recommendationModal.show();
-
-                try {
-                    const chatHistory = [];
-                    const prompt = `Berikan rekomendasi perawatan umum dan saran gaya hidup untuk pasien dengan keluhan "${keluhan}". Jawaban harus ringkas, informatif, dan tidak lebih dari 200 kata.`;
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = "";
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        recommendationContent.innerHTML = `<p>${text}</p>`;
-                        showNotification('Rekomendasi berhasil dimuat!', 'success');
-                    } else {
-                        recommendationContent.innerHTML = '<p class="text-danger">Gagal mendapatkan rekomendasi. Coba lagi.</p>';
-                        showNotification('Gagal mendapatkan rekomendasi.', 'danger');
-                    }
-                } catch (error) {
-                    console.error('Error calling Gemini API:', error);
-                    recommendationContent.innerHTML = `<p class="text-danger">Terjadi kesalahan saat memuat rekomendasi: ${error.message}</p>`;
-                    showNotification('Terjadi kesalahan API saat mendapatkan rekomendasi.', 'danger');
-                } finally {
-                    spinnerOverlay.classList.add('d-none');
-                }
-            }
-
-            /**
              * Menangani klik pada tombol "Cetak PDF".
              */
             cetakPdfButton.addEventListener('click', async () => {
                 spinnerOverlay.classList.remove('d-none');
-                showNotification('Mempersiapkan PDF...', 'info');
+                window.showNotification('Mempersiapkan PDF...', 'info');
 
                 try {
                     // Kloning seluruh bagian laporan untuk dimanipulasi tanpa memengaruhi DOM langsung
@@ -617,7 +697,7 @@
                     // Hapus header kolom 'Aksi' dari tabel yang dikloning
                     const clonedTableHeader = clonedReportSection.querySelector('thead tr');
                     if (clonedTableHeader) {
-                        const actionHeader = clonedReportSection.querySelector('.action-column-header');
+                        const actionHeader = clonedTableHeader.querySelector('.action-column-header');
                         if (actionHeader) {
                             actionHeader.remove();
                         }
@@ -630,7 +710,14 @@
                         if (actionCell) {
                             actionCell.remove();
                         }
+                        // Hapus elemen select dari kolom Jenis Pembayaran
+                        const selectElement = row.querySelector('select');
+                        if (selectElement) {
+                            const textNode = document.createTextNode(selectElement.value);
+                            selectElement.parentNode.replaceChild(textNode, selectElement);
+                        }
                     });
+
 
                     // Hapus tombol 'Hapus' dari daftar pengeluaran lain-lain
                     const miscDeleteButtons = clonedReportSection.querySelectorAll('.hide-for-pdf-misc');
@@ -642,6 +729,12 @@
                     const clonedPengeluaranInputSection = clonedReportSection.querySelector('#pengeluaran-lain-lain-input-section');
                     if (clonedPengeluaranInputSection) {
                         clonedPengeluaranInputSection.remove();
+                    }
+
+                    // Hapus bagian tampilan real-time dari kloningan
+                    const clonedRealTimeDisplayCard = clonedReportSection.querySelector('.card.text-center.bg-light.text-secondary.shadow-sm.rounded-3.mb-3');
+                    if (clonedRealTimeDisplayCard) {
+                        clonedRealTimeDisplayCard.remove();
                     }
 
 
@@ -675,36 +768,17 @@
                     }
 
                     pdf.save('daftar-pasien.pdf');
-                    showNotification('PDF berhasil dibuat dan diunduh!', 'success');
+                    window.showNotification('PDF berhasil dibuat dan diunduh!', 'success');
                 } catch (error) {
                     console.error('Error generating PDF:', error);
-                    showNotification('Gagal membuat PDF. Coba lagi.', 'danger');
+                    window.showNotification('Gagal membuat PDF. Coba lagi.', 'danger');
                 } finally {
                     spinnerOverlay.classList.add('d-none');
                 }
             });
 
-            function updateRealTimeDisplay() {
-                const now = new Date();
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-                realTimeDisplay.textContent = now.toLocaleDateString('id-ID', options);
-            }
-            // Panggil fungsi updateRealTimeDisplay setiap detik
-            setInterval(updateRealTimeDisplay, 1000);
-            // Panggil sekali saat inisialisasi untuk menampilkan waktu segera
-            updateRealTimeDisplay();
-             // Hapus bagian tampilan real-time dari kloningan
-                    const clonedRealTimeDisplayCard = clonedReportSection.querySelector('.card.text-center.bg-light.text-secondary.shadow-sm.rounded-3.mb-3');
-                    if (clonedRealTimeDisplayCard) {
-                        clonedRealTimeDisplayCard.remove();
-                    }
-
             // Menangani klik pada tombol pencarian.
             cariPasienInput.addEventListener('keyup', renderPasien);
-
-            // Panggil render awal saat DOMContentLoaded
-            renderPasien();
-            renderMiscellaneousExpenditures();
         });
     </script>
 </body>
