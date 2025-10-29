@@ -442,10 +442,10 @@
                     const row = daftarPasienBody.insertRow();
                     row.innerHTML = `
                         <td class="py-2 px-4">${idx + 1}.</td>
-                        <td class="py-2 px-4">${pasien.nama}</td>
-                        <td class="py-2 px-4">${pasien.alamat}</td>
-                        <td class="py-2 px-4">${pasien.keluhan}</td>
-                        <td class="py-2 px-4">${pasien.keterangan}</td>
+                        <td class="py-2 px-4" style="text-transform: uppercase;">${pasien.nama}</td>
+                        <td class="py-2 px-4" style="text-transform: uppercase;">${pasien.alamat}</td>
+                        <td class="py-2 px-4" style="text-transform: uppercase;">${pasien.keluhan}</td>
+                        <td class="py-2 px-4" style="text-transform: uppercase;">${pasien.keterangan}</td>
                         <td class="py-2 px-4">
                             <select class="form-select form-select-sm rounded-3" onchange="window.updateInlinePatient(this, 'jenisPembayaran', '${pasien.id}')">
                                 <option value="Tunai" ${pasien.jenisPembayaran === 'Tunai' ? 'selected' : ''}>Tunai</option>
